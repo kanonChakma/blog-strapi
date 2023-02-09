@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import img from "../public/blog.png";
+
 const NavBar = () => {
   return (
     <nav className="flex items-center justify-between py-6">

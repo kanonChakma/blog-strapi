@@ -1,9 +1,19 @@
+import { fetchCategories } from "@/api";
+import Tabs from "@/components/Tabs";
+import { ICategory, ICollectionResponse } from "@/types";
 import { Inter } from "@next/font/google";
+import { AxiosResponse } from "axios";
+import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
+interface IPropTypes {
+  categories: {
+    items: ICategory[];
+  };
+}
 
-export default function Home() {
+const Home: NextPage<IPropTypes> = ({ categories }) => {
   return (
     <>
       <Head>
@@ -12,9 +22,25 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Tabs categories={categories.items} />
       <main>
         <h1>This is main page</h1>
       </main>
     </>
   );
-}
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { data: categories }: AxiosResponse<ICollectionResponse<ICategory[]>> =
+    await fetchCategories();
+
+  return {
+    props: {
+      categories: {
+        items: categories.data,
+      },
+    },
+  };
+};
+
+export default Home;
