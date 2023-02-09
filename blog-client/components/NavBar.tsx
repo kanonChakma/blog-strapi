@@ -1,18 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-
+import img from "../public/blog.png";
 const NavBar = () => {
   return (
     <nav className="flex items-center justify-between py-6">
       <Link href="/">
         <div className="flex items-center cursior-pointer">
-          <Image
-            src="/../public/blog.png"
-            height={35}
-            width={40}
-            alt="blog-logo"
-          />
+          <Image src={img} height={35} width={40} alt="blog-logo" />
           <span className="font-bold ml-2 text-primary">Kanon blog</span>
         </div>
       </Link>
